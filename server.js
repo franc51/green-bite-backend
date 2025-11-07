@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 // Importing routes
-const recipeRoute = require("./Routes/recipes");
+const recipeRoute = require("./Routes/Recipe");
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);

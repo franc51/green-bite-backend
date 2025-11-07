@@ -8,8 +8,10 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.19.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.1"
+    "dotenv": "^16.4.1",
+    "express": "^4.19.2",
+    "mongodb": "^7.0.0",
+    "mongoose": "^8.19.3"
   }
 }
