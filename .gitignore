@@ -1,1 +1,17 @@
-#.env
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Build outputs
+dist/
+build/
+
+# VS Code settings (optional)
+.vscode/
