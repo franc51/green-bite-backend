@@ -1,4 +1,4 @@
-const recipeModel = require("../Models/recipeModel");
+const recipeModel = require("../models/recipeModel");
 
 // Get all recipes
 exports.getRecipes = async (req, res) => {
