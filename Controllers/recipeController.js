@@ -3,7 +3,7 @@ const recipeModel = require("../models/recipeModel");
 // Get all recipes
 exports.getRecipes = async (req, res) => {
   try {
-    const recipes = await Recipe.find();
+    const recipes = await recipeModel.find();
     res.json(recipes);
   } catch (err) {
     console.error(err);
@@ -14,7 +14,7 @@ exports.getRecipes = async (req, res) => {
 // Get a single recipe by ID
 exports.getRecipeById = async (req, res) => {
   try {
-    const recipe = await Recipe.findById(req.params.id);
+    const recipe = await recipeModel.findById(req.params.id);
     if (!recipe) return res.status(404).json({ message: "Recipe not found" });
     res.json(recipe);
   } catch (err) {
@@ -26,7 +26,7 @@ exports.getRecipeById = async (req, res) => {
 // Create a new recipe
 exports.createRecipe = async (req, res) => {
   try {
-    const recipe = new Recipe(req.body);
+    const recipe = new recipeModel(req.body);
     await recipe.save();
     res.status(201).json(recipe);
   } catch (err) {
@@ -38,9 +38,13 @@ exports.createRecipe = async (req, res) => {
 // Update a recipe by ID
 exports.updateRecipe = async (req, res) => {
   try {
-    const recipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const recipe = await recipeModel.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+      }
+    );
     if (!recipe) return res.status(404).json({ message: "Recipe not found" });
     res.json(recipe);
   } catch (err) {
@@ -52,7 +56,7 @@ exports.updateRecipe = async (req, res) => {
 // Delete a recipe by ID
 exports.deleteRecipe = async (req, res) => {
   try {
-    const recipe = await Recipe.findByIdAndDelete(req.params.id);
+    const recipe = await recipeModel.findByIdAndDelete(req.params.id);
     if (!recipe) return res.status(404).json({ message: "Recipe not found" });
     res.json({ message: "Recipe deleted" });
   } catch (err) {
