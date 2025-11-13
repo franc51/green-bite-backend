@@ -26,11 +26,30 @@ exports.getRecipeById = async (req, res) => {
 // Create a new recipe
 exports.createRecipe = async (req, res) => {
   try {
-    const recipe = new recipeModel(req.body);
+    // Arrays
+    const ingredients = req.body.ingredients || [];
+    const instructions = req.body.instructions || [];
+
+    const recipeData = {
+      title: req.body.title,
+      category: req.body.category,
+      cooktime: req.body.cooktime?.toString() || "30",
+      servings: req.body.servings || 1,
+      difficulty: req.body.difficulty || "easy",
+      ingredients,
+      instructions,
+      vegan: !!req.body.vegan,
+      keto: !!req.body.keto,
+      author: req.body.author || "Anonymous",
+      picture: req.body.picture || null, // now a URL string
+    };
+
+    const recipe = new recipeModel(recipeData);
     await recipe.save();
+
     res.status(201).json(recipe);
   } catch (err) {
-    console.error(err);
+    console.error("Create recipe error:", err);
     res.status(500).json({ message: "Database error", error: err.message });
   }
 };

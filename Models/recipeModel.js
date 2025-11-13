@@ -16,6 +16,8 @@ const recipeSchema = new mongoose.Schema(
     ingredients: { type: [String], required: true },
     instructions: { type: [String], required: true },
     vegan: { type: Boolean, default: false },
+    keto: { type: Boolean, default: false },
+    author: { type: String, default: "Anonymous" }
     favorites: { type: Number, default: 0 },
   },
   { timestamps: true }
