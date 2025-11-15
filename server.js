@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/recipesNew", recipeRoutes);
+app.use("/recipes", recipeRoutes);
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
