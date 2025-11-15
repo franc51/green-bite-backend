@@ -4,7 +4,7 @@ require("dotenv").config();
 const connectDB = require("./db");
 
 // Importing routes
-const recipeRoutes = require("./routes/recipeRoutes");
+const recipeRoutes = require("./routesNew/recipeRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
