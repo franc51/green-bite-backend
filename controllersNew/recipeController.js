@@ -7,7 +7,12 @@ exports.getRecipes = async (req, res) => {
     const page = parseInt(req.query.page) || 1; // current page
     const skip = (page - 1) * limit;
 
-    const recipes = await recipeModel.find().skip(skip).limit(limit);
+    const recipes = await recipeModel
+      .find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
     const total = await recipeModel.countDocuments();
 
     res.json({
