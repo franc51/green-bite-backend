@@ -10,15 +10,14 @@ const recipeSchema = new mongoose.Schema(
     servings: { type: Number },
     difficulty: {
       type: String,
-      enum: ["easy", "medium", "hard"],
-      default: "easy",
+      enum: ["Ușor", "Mediu", "Dificil"],
+      default: "Ușor",
     },
     ingredients: { type: [String], required: true },
     instructions: { type: [String], required: true },
     vegan: { type: Boolean, default: false },
     keto: { type: Boolean, default: false },
-    author: { type: String, default: "Anonymous" }
-    favorites: { type: Number, default: 0 },
+    author: { type: String, default: "Anonymous" },
   },
   { timestamps: true }
 );

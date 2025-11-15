@@ -3,8 +3,19 @@ const recipeModel = require("../models/recipeModel");
 // Get all recipes
 exports.getRecipes = async (req, res) => {
   try {
-    const recipes = await recipeModel.find();
-    res.json(recipes);
+    const limit = parseInt(req.query.limit) || 12; // recipes per page
+    const page = parseInt(req.query.page) || 1; // current page
+    const skip = (page - 1) * limit;
+
+    const recipes = await recipeModel.find().skip(skip).limit(limit);
+    const total = await recipeModel.countDocuments();
+
+    res.json({
+      recipes,
+      total,
+      page,
+      pages: Math.ceil(total / limit),
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Database error", error: err.message });
