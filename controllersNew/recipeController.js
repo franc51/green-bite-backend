@@ -1,19 +1,42 @@
 const recipeModel = require("../modelsNew/recipeModel");
 
-// Get all recipes
+// Get all recipes with filters
 exports.getRecipes = async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit) || 12; // recipes per page
-    const page = parseInt(req.query.page) || 1; // current page
+    const limit = parseInt(req.query.limit) || 12;
+    const page = parseInt(req.query.page) || 1;
     const skip = (page - 1) * limit;
 
+    // filter object
+    let filters = {};
+
+    if (req.query.search) {
+      filters.title = { $regex: req.query.search, $options: "i" };
+    }
+
+    if (req.query.category) {
+      filters.category = req.query.category;
+    }
+
+    if (req.query.difficulty) {
+      filters.difficulty = req.query.difficulty;
+    }
+
+    if (req.query.vegan === "true") {
+      filters.vegan = true;
+    }
+
+    if (req.query.keto === "true") {
+      filters.keto = true;
+    }
+
     const recipes = await recipeModel
-      .find()
+      .find(filters)
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
 
-    const total = await recipeModel.countDocuments();
+    const total = await recipeModel.countDocuments(filters);
 
     res.json({
       recipes,
